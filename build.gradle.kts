@@ -87,10 +87,17 @@ dependencies {
     implementation("dev.triumphteam:triumph-gui:3.1.10") { exclude("net.kyori") }
     implementation("gs.mclo:java:2.2.1")
 
+    implementation("com.github.technicallycoded:FoliaLib:main-SNAPSHOT")
     implementation("org.spongepowered:configurate-yaml:4.1.2")
     implementation("org.spongepowered:configurate-extra-kotlin:4.1.2")
 
     implementation("me.gabytm.util:actions-spigot:1.0.0-SNAPSHOT") { exclude(group = "com.google.guava") }
+}
+
+tasks {
+    shadowJar {
+        relocate("com.github.technicallycoded", "com.nexomc")
+    }
 }
 
 if (pluginPath != null) {
@@ -117,7 +124,7 @@ if (pluginPath != null) {
 }
 
 bukkitPluginYaml {
-    main = "com.codecraft.nexo.NexoLibs"
+    main = "com.nexomc.nexo.NexoLibs"
     name = "NexoLibs"
     apiVersion = "1.20"
     version = pluginVersion

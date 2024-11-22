@@ -1,4 +1,4 @@
-package com.codecraft.nexo
+package com.nexomc.nexo
 
 import org.bukkit.plugin.java.JavaPlugin
 
