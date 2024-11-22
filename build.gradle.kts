@@ -1,24 +1,17 @@
 import xyz.jpenilla.resourcefactory.bukkit.BukkitPluginYaml
-import xyz.jpenilla.resourcefactory.bukkit.Permission
-import kotlin.io.path.Path
-import kotlin.io.path.listDirectoryEntries
 
 plugins {
     id("java")
-    id("com.mineinabyss.conventions.kotlin.jvm")
-    id("com.mineinabyss.conventions.papermc")
-    //id("com.mineinabyss.conventions.copyjar")
-    id("com.mineinabyss.conventions.publication")
-    id("com.mineinabyss.conventions.autoversion")
+    alias(idofrontLibs.plugins.mia.kotlin.jvm)
+    alias(idofrontLibs.plugins.mia.papermc)
+    alias(idofrontLibs.plugins.mia.copyjar)
+    alias(idofrontLibs.plugins.mia.publication)
+    alias(idofrontLibs.plugins.mia.autoversion)
     id("xyz.jpenilla.run-paper") version "2.3.1" // Adds runServer and runMojangMappedServer tasks for testing
     id("xyz.jpenilla.resource-factory-bukkit-convention") version "1.2.0"
     id("io.papermc.paperweight.userdev") version "1.7.5" apply false
     id("com.gradleup.shadow") version "8.3.5"
 }
-
-val compiled = (project.findProperty("nexo_compiled")?.toString() ?: "true").toBoolean()
-val pluginPath = project.findProperty("nexo_plugin_path")?.toString()
-val pluginVersion: String by project
 
 val commandApiVersion = "9.6.1"
 val adventureVersion = "4.17.0"
@@ -27,8 +20,6 @@ val googleGsonVersion = "2.11.0"
 val apacheLang3Version = "3.17.0"
 val apacheHttpClientVersion = "5.4"
 val creativeVersion = "1.7.3"
-
-version = pluginVersion
 
 repositories {
     mavenCentral()
@@ -58,40 +49,40 @@ repositories {
 }
 
 dependencies {
-    implementation(idofrontLibs.kotlin.stdlib)
+    api(idofrontLibs.kotlin.stdlib)
 
-    implementation("net.kyori:adventure-text-minimessage:$adventureVersion")
-    implementation("net.kyori:adventure-text-serializer-plain:$adventureVersion")
-    implementation("net.kyori:adventure-text-serializer-ansi:$adventureVersion")
-    implementation("net.kyori:adventure-platform-bukkit:$platformVersion")
+    api("net.kyori:adventure-text-minimessage:$adventureVersion")
+    api("net.kyori:adventure-text-serializer-plain:$adventureVersion")
+    api("net.kyori:adventure-text-serializer-ansi:$adventureVersion")
+    api("net.kyori:adventure-platform-bukkit:$platformVersion")
 
-    implementation("team.unnamed:creative-api:$creativeVersion") { exclude("net.kyori") }
-    implementation("team.unnamed:creative-server:$creativeVersion")
-    implementation("team.unnamed:creative-serializer-minecraft:1.7.4-SNAPSHOT") { exclude("net.kyori") }
+    api("team.unnamed:creative-api:$creativeVersion") { exclude("net.kyori") }
+    api("team.unnamed:creative-server:$creativeVersion")
+    api("team.unnamed:creative-serializer-minecraft:1.7.4-SNAPSHOT") { exclude("net.kyori") }
 
-    implementation("dev.jorel:commandapi-bukkit-shade:$commandApiVersion")
-    implementation("dev.jorel:commandapi-bukkit-kotlin:$commandApiVersion")
+    api("dev.jorel:commandapi-bukkit-shade:$commandApiVersion")
+    api("dev.jorel:commandapi-bukkit-kotlin:$commandApiVersion")
 
-    implementation("org.bstats:bstats-bukkit:3.1.0")
-    implementation("org.glassfish:javax.json:1.1.4")
-    implementation("io.th0rgal:protectionlib:1.6.2")
-    implementation("org.springframework:spring-expression:6.0.8")
-    implementation("org.apache.commons:commons-lang3:$apacheLang3Version")
-    implementation("org.apache.httpcomponents.client5:httpclient5:$apacheHttpClientVersion")
-    implementation("com.google.code.gson:gson:$googleGsonVersion")
-    implementation("com.github.stefvanschie.inventoryframework:IF:0.10.12")
-    implementation("com.jeff-media:custom-block-data:2.2.2")
-    implementation("com.jeff-media:MorePersistentDataTypes:2.4.0")
-    implementation("com.jeff-media:persistent-data-serializer:1.0")
-    implementation("org.jetbrains:annotations:26.0.1") { isTransitive = false }
-    implementation("dev.triumphteam:triumph-gui:3.1.10") { exclude("net.kyori") }
-    implementation("gs.mclo:java:2.2.1")
+    api("org.bstats:bstats-bukkit:3.1.0")
+    api("org.glassfish:javax.json:1.1.4")
+    api("io.th0rgal:protectionlib:1.6.2")
+    api("org.springframework:spring-expression:6.0.8")
+    api("org.apache.commons:commons-lang3:$apacheLang3Version")
+    api("org.apache.httpcomponents.client5:httpclient5:$apacheHttpClientVersion")
+    api("com.google.code.gson:gson:$googleGsonVersion")
+    api("com.github.stefvanschie.inventoryframework:IF:0.10.12")
+    api("com.jeff-media:custom-block-data:2.2.2")
+    api("com.jeff-media:MorePersistentDataTypes:2.4.0")
+    api("com.jeff-media:persistent-data-serializer:1.0")
+    api("org.jetbrains:annotations:26.0.1") { isTransitive = false }
+    api("dev.triumphteam:triumph-gui:3.1.10") { exclude("net.kyori") }
+    api("gs.mclo:java:2.2.1")
 
-    implementation("com.github.technicallycoded:FoliaLib:main-SNAPSHOT")
-    implementation("org.spongepowered:configurate-yaml:4.1.2")
-    implementation("org.spongepowered:configurate-extra-kotlin:4.1.2")
+    api("com.github.technicallycoded:FoliaLib:main-SNAPSHOT")
+    api("org.spongepowered:configurate-yaml:4.1.2")
+    api("org.spongepowered:configurate-extra-kotlin:4.1.2")
 
-    implementation("me.gabytm.util:actions-spigot:1.0.0-SNAPSHOT") { exclude(group = "com.google.guava") }
+    api("me.gabytm.util:actions-spigot:1.0.0-SNAPSHOT") { exclude(group = "com.google.guava") }
 }
 
 tasks {
@@ -100,34 +91,12 @@ tasks {
     }
 }
 
-if (pluginPath != null) {
-    tasks {
-        val defaultPath = findByName("reobfJar") ?: findByName("shadowJar") ?: findByName("jar")
-        // Define the main copy task
-        val copyJarTask = register<Copy>("copyJar") {
-            this.doNotTrackState("Overwrites the plugin jar to allow for easier reloading")
-            dependsOn(shadowJar, jar)
-            from(defaultPath)
-            into(pluginPath)
-            doLast {
-                println("Copied to plugin directory $pluginPath")
-                Path(pluginPath).listDirectoryEntries()
-                    .filter { it.fileName.toString().matches("nexo-.*.jar".toRegex()) }
-                    .filterNot { it.fileName.toString().endsWith("$pluginVersion.jar") }
-                    .forEach { delete(it) }
-            }
-        }
-
-        // Make the build task depend on all individual copy tasks
-        named<DefaultTask>("build").get().dependsOn(copyJarTask)
-    }
-}
-
 bukkitPluginYaml {
     main = "com.nexomc.nexo.NexoLibs"
     name = "NexoLibs"
     apiVersion = "1.20"
-    version = pluginVersion
+    val version: String by project
+    this.version = version
     authors.add("boy0000")
     load = BukkitPluginYaml.PluginLoadOrder.STARTUP
 

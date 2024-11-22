@@ -9,23 +9,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up JDK
-        uses: actions/setup-java@v3
+      - uses: actions/checkout@v4
         with:
-          distribution: temurin
-          java-version: 21
-      - name: Set env variable from latest maven version
-        run: >
-          echo "RELEASE_VERSION=$( \
-            curl https://repo.mineinabyss.com/releases/com/nexomc/nexolibs/maven-metadata.xml | \
-            grep -oP '(?!<latest>)[\d\.]*(?=</latest>)' \
-          )" >> $GITHUB_ENV
-      - name: Run gradle build and publish
-        run: gradle publish -PmineinabyssMavenUsername=${{ secrets.MAVEN_USERNAME }} -PmineinabyssMavenPassword=${{ secrets.MAVEN_PASSWORD }}
-      - name: Get version from gradle
-        shell: bash
-        id: extract_version
-        run: |
-          version=`gradle properties --no-daemon --console=plain -q | grep "^version:" | awk '{printf $2}'`
-          echo "::set-output name=version::$version"
+          fetch-depth: 0
+
+      - uses: MineInAbyss/publish-action@develop
+        with:
+          maven-metadata-url: https://repo.mineinabyss.com/releases/com/nexomc/nexolibs/maven-metadata.xml
+          maven-snapshot-metadata-url: https://repo.mineinabyss.com/snapshots/com/nexomc/nexolibs/maven-metadata.xml
+          maven-username: ${{ secrets.MAVEN_USERNAME }}
+          maven-password: ${{ secrets.MAVEN_PASSWORD }}
+          release-files: |
+            ${{ github.workspace }}/publish/*.jar
