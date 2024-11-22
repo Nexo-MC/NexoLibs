@@ -10,7 +10,6 @@ plugins {
     id("xyz.jpenilla.run-paper") version "2.3.1" // Adds runServer and runMojangMappedServer tasks for testing
     id("xyz.jpenilla.resource-factory-bukkit-convention") version "1.2.0"
     id("io.papermc.paperweight.userdev") version "1.7.5" apply false
-    id("com.gradleup.shadow") version "8.3.5"
 }
 
 val commandApiVersion = "9.6.1"
@@ -25,12 +24,7 @@ repositories {
     mavenCentral()
 
     maven("https://papermc.io/repo/repository/maven-public/") // Paper
-    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/") // Spigot
-    maven("https://oss.sonatype.org/content/repositories/snapshots") // Because Spigot depends on Bungeecord ChatComponent-API
-    maven("https://repo.dmulloy2.net/repository/public/") // ProtocolLib
-    maven("https://libraries.minecraft.net/") // Minecraft repo (commodore)
     maven("https://repo.extendedclip.com/content/repositories/placeholderapi/") // PlaceHolderAPI
-    maven("https://maven.elmakers.com/repository/") // EffectLib
     maven("https://hub.jeff-media.com/nexus/repository/jeff-media-public/") // CustomBlockData
     maven("https://repo.triumphteam.dev/snapshots") // actions-code, actions-spigot
     maven("https://mvn.lumine.io/repository/maven-public/") { metadataSources { artifact() } }// MythicMobs
@@ -62,26 +56,24 @@ dependencies {
 
     api("dev.jorel:commandapi-bukkit-shade:$commandApiVersion")
     api("dev.jorel:commandapi-bukkit-kotlin:$commandApiVersion")
-
-    api("org.bstats:bstats-bukkit:3.1.0")
-    api("org.glassfish:javax.json:1.1.4")
-    api("io.th0rgal:protectionlib:1.6.2")
-    api("org.springframework:spring-expression:6.0.8")
-    api("org.apache.commons:commons-lang3:$apacheLang3Version")
-    api("org.apache.httpcomponents.client5:httpclient5:$apacheHttpClientVersion")
-    api("com.google.code.gson:gson:$googleGsonVersion")
+    api("org.spongepowered:configurate-yaml:4.1.2")
+    api("org.spongepowered:configurate-extra-kotlin:4.1.2")
     api("com.github.stefvanschie.inventoryframework:IF:0.10.12")
     api("com.jeff-media:custom-block-data:2.2.2")
     api("com.jeff-media:MorePersistentDataTypes:2.4.0")
     api("com.jeff-media:persistent-data-serializer:1.0")
-    api("org.jetbrains:annotations:26.0.1") { isTransitive = false }
     api("dev.triumphteam:triumph-gui:3.1.10") { exclude("net.kyori") }
     api("gs.mclo:java:2.2.1")
-
+    api("io.th0rgal:protectionlib:1.7.0")
     api("com.github.technicallycoded:FoliaLib:main-SNAPSHOT")
-    api("org.spongepowered:configurate-yaml:4.1.2")
-    api("org.spongepowered:configurate-extra-kotlin:4.1.2")
 
+    api("commons-io:commons-io:2.11.0")
+    api("com.google.code.gson:gson:$googleGsonVersion")
+    api("org.apache.commons:commons-lang3:$apacheLang3Version")
+    api("org.apache.httpcomponents.client5:httpclient5:$apacheHttpClientVersion")
+    api("org.springframework:spring-expression:6.0.8")
+    api("org.glassfish:javax.json:1.1.4")
+    api("org.jetbrains:annotations:26.0.1") { isTransitive = false }
     api("me.gabytm.util:actions-spigot:1.0.0-SNAPSHOT") { exclude(group = "com.google.guava") }
 }
 
@@ -99,22 +91,6 @@ bukkitPluginYaml {
     this.version = version
     authors.add("boy0000")
     load = BukkitPluginYaml.PluginLoadOrder.STARTUP
-
-    softDepend = listOf(
-        "PlaceholderAPI", "MythicMobs", "MMOItems", "MythicCrucible", "MythicMobs",
-        "WorldEdit", "WorldGuard", "Towny", "Factions", "Lands", "PlotSquared",
-        "ModelEngine", "HuskTowns", "HuskClaims", "BentoBox", "AxiomPaper"
-    )
-    libraries = listOf(
-        "org.springframework:spring-expression:6.0.6",
-        "net.kyori:adventure-text-minimessage:$adventureVersion",
-        "net.kyori:adventure-text-serializer-plain:$adventureVersion",
-        "net.kyori:adventure-text-serializer-ansi:$adventureVersion",
-        "net.kyori:adventure-platform-bukkit:$platformVersion",
-        "com.google.code.gson:gson:$googleGsonVersion",
-        "org.apache.commons:commons-lang3:$apacheLang3Version",
-        "org.apache.httpcomponents.client5:httpclient5:$apacheHttpClientVersion",
-    )
 }
 
 kotlin {
