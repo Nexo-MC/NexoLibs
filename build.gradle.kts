@@ -80,6 +80,13 @@ dependencies {
 tasks {
     shadowJar {
         relocate("com.github.technicallycoded", "com.nexomc")
+        relocate("kotlin", "com.nexomc.kotlin")
+        relocate("team.unnamed", "com.nexomc")
+        relocate("dev.jorel", "com.nexomc")
+        relocate("com.jeff-media", "com.nexomc")
+        relocate("io.th0rgal", "com.nexomc")
+        relocate("com.github.stefvanschie", "com.nexomc")
+        relocate("org.spongepowered", "com.nexomc")
     }
 }
 
