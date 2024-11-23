@@ -2,10 +2,10 @@ import xyz.jpenilla.resourcefactory.bukkit.BukkitPluginYaml
 
 plugins {
     id("java")
+    id("maven-publish")
     alias(idofrontLibs.plugins.mia.kotlin.jvm)
     alias(idofrontLibs.plugins.mia.papermc)
     alias(idofrontLibs.plugins.mia.copyjar)
-    alias(idofrontLibs.plugins.mia.publication)
     alias(idofrontLibs.plugins.mia.autoversion)
     id("xyz.jpenilla.run-paper") version "2.3.1" // Adds runServer and runMojangMappedServer tasks for testing
     id("xyz.jpenilla.resource-factory-bukkit-convention") version "1.2.0"
@@ -43,7 +43,7 @@ repositories {
 }
 
 dependencies {
-    api(idofrontLibs.kotlin.stdlib)
+    implementation(idofrontLibs.kotlin.stdlib)
 
     api("net.kyori:adventure-text-minimessage:$adventureVersion")
     api("net.kyori:adventure-text-serializer-plain:$adventureVersion")
@@ -67,7 +67,7 @@ dependencies {
     api("io.th0rgal:protectionlib:1.7.0")
     api("com.github.technicallycoded:FoliaLib:main-SNAPSHOT")
 
-    api("commons-io:commons-io:2.11.0")
+    api("commons-io:commons-io:2.14.0")
     api("com.google.code.gson:gson:$googleGsonVersion")
     api("org.apache.commons:commons-lang3:$apacheLang3Version")
     api("org.apache.httpcomponents.client5:httpclient5:$apacheHttpClientVersion")
@@ -80,6 +80,31 @@ dependencies {
 tasks {
     shadowJar {
         relocate("com.github.technicallycoded", "com.nexomc")
+    }
+}
+
+copyJar {
+    destPath.set(project.findProperty("nexo_plugin_path").toString())
+    excludePlatformDependencies.set(false)
+}
+
+publishing {
+    repositories {
+        maven {
+            val repo = "https://repo.nexomc.com/"
+            val isSnapshot = System.getenv("IS_SNAPSHOT") == "true"
+            val url = if (isSnapshot) repo + "snapshots" else repo + "releases"
+            setUrl(url)
+            credentials {
+                username = project.findProperty("mineinabyssMavenUsername") as String?
+                password = project.findProperty("mineinabyssMavenPassword") as String?
+            }
+        }
+    }
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["java"])
+        }
     }
 }
 
