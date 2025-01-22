@@ -18,7 +18,7 @@ val googleGsonVersion = "2.11.0"
 val idofrontVersion: String by project
 val apacheLang3Version = "3.17.0"
 val apacheHttpClientVersion = "5.4.1"
-val creativeVersion = "1.7.3"
+val creativeVersion = "1.7.8-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -43,8 +43,9 @@ repositories {
 }
 
 dependencies {
-    implementation(idofrontLibs.kotlinx.coroutines)
-    implementation(idofrontLibs.kotlin.stdlib)
+    compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
+    compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.10.1")
+    compileOnly("org.jetbrains.kotlin:kotlin-stdlib:2.1.0")
 
     api("com.mineinabyss:idofront-util:$idofrontVersion")
     api("net.kyori:adventure-text-minimessage:$adventureVersion")
@@ -52,8 +53,8 @@ dependencies {
     api("net.kyori:adventure-text-serializer-ansi:$adventureVersion")
     api("net.kyori:adventure-platform-bukkit:$platformVersion")
 
-    api("team.unnamed:creative-api:1.7.6-SNAPSHOT") { exclude("net.kyori") }
-    api("team.unnamed:creative-serializer-minecraft:1.7.6-SNAPSHOT") { exclude("net.kyori") }
+    api("team.unnamed:creative-api:$creativeVersion") { exclude("net.kyori") }
+    api("team.unnamed:creative-serializer-minecraft:$creativeVersion") { exclude("net.kyori") }
     api("team.unnamed:creative-server:$creativeVersion")
 
     api("dev.jorel:commandapi-bukkit-shade-mojang-mapped:$commandApiVersion")
