@@ -65,7 +65,7 @@ dependencies {
     api("com.jeff-media:custom-block-data:2.2.2")
     api("com.jeff-media:MorePersistentDataTypes:2.4.0")
     api("com.jeff-media:persistent-data-serializer:1.0")
-    api("dev.triumphteam:triumph-gui:3.1.12-SNAPSHOT") { exclude("net.kyori") }
+    api("dev.triumphteam:triumph-gui:3.2.0-SNAPSHOT") { exclude("net.kyori") }
     api("gs.mclo:java:2.2.1")
     api("io.th0rgal:protectionlib:1.8.0")
     api("com.tcoded:FoliaLib:0.4.3")
