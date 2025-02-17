@@ -86,7 +86,7 @@ tasks {
         relocate("kotlin.", "com.nexomc.libs.kotlin.")
         fun shade(groupId: String) = relocate(groupId, "com.nexomc.libs")
         shade("com.tcoded")
-        shade("team.unnamed")
+        //shade("team.unnamed")
         shade("dev.jorel")
         shade("com.jeff_media")
         shade("io.th0rgal")
