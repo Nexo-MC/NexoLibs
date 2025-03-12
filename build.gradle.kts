@@ -12,13 +12,11 @@ plugins {
 }
 
 val commandApiVersion = "9.7.0"
-val adventureVersion = "4.18.0"
-val platformVersion = "4.3.4"
-val googleGsonVersion = "2.11.0"
+val googleGsonVersion = "2.12.1"
 val idofrontVersion: String by project
 val apacheLang3Version = "3.17.0"
 val apacheHttpClientVersion = "5.4.1"
-val creativeVersion = "1.7.8-SNAPSHOT"
+val creativeVersion = "1.8.3-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -48,10 +46,6 @@ dependencies {
     compileOnly("org.jetbrains.kotlin:kotlin-stdlib:2.1.0")
 
     api("com.mineinabyss:idofront-util:$idofrontVersion")
-    api("net.kyori:adventure-text-minimessage:$adventureVersion")
-    api("net.kyori:adventure-text-serializer-plain:$adventureVersion")
-    api("net.kyori:adventure-text-serializer-ansi:$adventureVersion")
-    api("net.kyori:adventure-platform-bukkit:$platformVersion")
 
     api("team.unnamed:creative-api:$creativeVersion") { exclude("net.kyori") }
     api("team.unnamed:creative-serializer-minecraft:$creativeVersion") { exclude("net.kyori") }
@@ -67,7 +61,7 @@ dependencies {
     api("com.jeff-media:persistent-data-serializer:1.0")
     api("dev.triumphteam:triumph-gui:3.2.0-SNAPSHOT") { exclude("net.kyori") }
     api("gs.mclo:java:2.2.1")
-    api("io.th0rgal:protectionlib:1.8.0")
+    api("com.nexomc:protectionlib:1.0.5")
     api("com.tcoded:FoliaLib:0.4.3")
 
     api("commons-io:commons-io:2.18.0")
@@ -86,10 +80,8 @@ tasks {
         relocate("kotlin.", "com.nexomc.libs.kotlin.")
         fun shade(groupId: String) = relocate(groupId, "com.nexomc.libs")
         shade("com.tcoded")
-        //shade("team.unnamed")
         shade("dev.jorel")
         shade("com.jeff_media")
-        shade("io.th0rgal")
         shade("com.github.stefvanschie")
         shade("org.spongepowered")
         shade("me.gabytm.util")
