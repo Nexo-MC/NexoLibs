@@ -11,12 +11,12 @@ plugins {
     //id("xyz.jpenilla.resource-factory-bukkit-convention") version "1.2.0"
 }
 
-val commandApiVersion = "9.7.0"
-val googleGsonVersion = "2.12.1"
+val commandApiVersion = "10.0.0"
+val googleGsonVersion = "2.11.0"
 val idofrontVersion: String by project
 val apacheLang3Version = "3.17.0"
-val apacheHttpClientVersion = "5.4.1"
-val creativeVersion = "1.8.3-SNAPSHOT"
+val apacheHttpClientVersion = "5.4.3"
+val creativeVersion = "1.8.5-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -61,7 +61,7 @@ dependencies {
     api("com.jeff-media:persistent-data-serializer:1.0")
     api("dev.triumphteam:triumph-gui:3.2.0-SNAPSHOT") { exclude("net.kyori") }
     api("gs.mclo:java:2.2.1")
-    api("com.nexomc:protectionlib:1.0.5")
+    api("com.nexomc:protectionlib:1.0.6")
     api("com.tcoded:FoliaLib:0.4.3")
 
     api("commons-io:commons-io:2.18.0")
