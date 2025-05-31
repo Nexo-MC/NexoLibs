@@ -11,7 +11,7 @@ plugins {
     //id("xyz.jpenilla.resource-factory-bukkit-convention") version "1.2.0"
 }
 
-val commandApiVersion = "10.0.0"
+val commandApiVersion = "10.0.1"
 val googleGsonVersion = "2.11.0"
 val idofrontVersion: String by project
 val apacheLang3Version = "3.17.0"
@@ -41,11 +41,9 @@ repositories {
 }
 
 dependencies {
-    compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
-    compileOnly("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.10.1")
-    compileOnly("org.jetbrains.kotlin:kotlin-stdlib:2.1.0")
-
-    api("com.mineinabyss:idofront-util:$idofrontVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.10.1")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:2.1.0")
 
     api("team.unnamed:creative-api:$creativeVersion") { exclude("net.kyori") }
     api("team.unnamed:creative-serializer-minecraft:$creativeVersion") { exclude("net.kyori") }
@@ -61,8 +59,6 @@ dependencies {
     api("com.jeff-media:persistent-data-serializer:1.0")
     api("dev.triumphteam:triumph-gui:3.2.0-SNAPSHOT") { exclude("net.kyori") }
     api("gs.mclo:java:2.2.1")
-    api("com.nexomc:protectionlib:1.0.6")
-    api("com.tcoded:FoliaLib:0.4.3")
 
     api("commons-io:commons-io:2.18.0")
     api("com.google.code.gson:gson:$googleGsonVersion")
@@ -70,22 +66,17 @@ dependencies {
     api("org.apache.httpcomponents.client5:httpclient5:$apacheHttpClientVersion")
     api("org.springframework:spring-expression:6.1.14")
     api("org.jetbrains:annotations:26.0.1") { isTransitive = false }
-    api("me.gabytm.util:actions-spigot:1.0.0") { exclude(group = "com.google.guava") }
-    api("me.gabytm.util:actions-core:1.0.0") { exclude(group = "com.google.guava") }
 }
 
 tasks {
     shadowJar {
-        relocate("kotlinx.", "com.nexomc.libs.kotlinx.")
-        relocate("kotlin.", "com.nexomc.libs.kotlin.")
+        //relocate("kotlinx.", "com.nexomc.libs.kotlinx.")
+        //relocate("kotlin.", "com.nexomc.libs.kotlin.")
         fun shade(groupId: String) = relocate(groupId, "com.nexomc.libs")
-        shade("com.tcoded")
-        shade("dev.jorel")
+        //shade("dev.jorel")
         shade("com.jeff_media")
         shade("com.github.stefvanschie")
         shade("org.spongepowered")
-        shade("me.gabytm.util")
-        shade("com.mineinabyss")
         shade("dev.triumphteam")
     }
 }
